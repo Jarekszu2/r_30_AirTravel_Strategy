@@ -1,0 +1,43 @@
+Zadanie ma charakter bliski zadaniom rekrutacyjnym. Zakładamy istnienie kilku systemów które dostarczają dane do naszej aplikacji. Każdy z nich jest inny.
+
+Niech systemy dostarczają informacji dotyczących podróży lotniczych. Model lotu posiada następujące informacje:
+- nr lotu
+- czas wylotu (timestamp)
+- czas przylotu (timestamp)
+- numery miejsc pierwszej klasy
+- numery miejsc drugiej klasy
+- nazwiska osób które zarezerwowały loty, numery zarezerwowanych miejsc, numery rezerwacji
+
+Twórcy pierwszego systemu zapisali informacje o swoich lotach w postaci pliku tekstowego. 
+Zdefiniowali format pliku w którym wszystkie najważniejsze elementy rozdzielili średnikami. 
+Jeśli dane w jednej sekcji składały się z większej grupy wartości, to zostały rozdzielone znakiem procentu ‚%’.
+Jeśli wartość w tej grupie była złożona, to jej poszczególne elementy podzielono znakiem hash ‚#’.
+Początek linii wygląda następująco:
+
+K345JN323K4JN;1514829600000;1514838000000;1%2%3%4%5%6;7%8%9%10%11%12%13%14%15%16%17%18%19%20;Nowak#1#AWA354%Kowalski#2#TJH347%Adamowicz#7#HTR823%Kunegunda#8#OPW512%Olechowicz#9#EDZ512%Gabrielowicz#10#AWG246%Marcelewicz#11#OGB259%Ambroży#12#QYF730%Lew#13#LAZ572%Ferdynand#15#MTY877%Greenlaw#17#CPW443%Babetski#20#AHE323%
+
+Twórcy drugiego systemu stwierdzili, że ich system będzie zawierał te same inforamcje w nowych liniach, a każda nowa krotka(nowy rekord lotu) będzie od siebie oddzielona linią złożoną wyłącznie z (90) myślników. 
+
+Przykład (ten sam lot co wyżej):
+-----------------------------------------------------------------------------------------
+K345JN323K4JN
+1514829600000
+1514838000000
+1 2 3 4 5 6
+7 8 9 10 11 12 13 14 15 16 17 18 19 20
+Nowak,1,AWA354 Kowalski,2,TJH347 Adamowicz,7,HTR823 Kunegunda,8,OPW512 Olechowicz,9,EDZ512 Gabrielowicz,10,AWG246 Marcelewicz,11,OGB259 Ambroży,12,QYF730 Lew,13,LAZ572 Ferdynand,15,MTY877 Greenlaw,17,CPW443 Babetski,20,AHE323
+-----------------------------------------------------------------------------------------
+
+
+Twórcy trzeciego systemu opisali wszystkie loty w oddzielnych plikach. Jedyne co dostarczają, to folder pełen plików z danymi, a w plikach dane w formacie:
+
+FLIGHT_ID=K345JN323K4JN
+DEPARTURE_TIME=1514829600000
+ARRIVAL_TIME=1514838000000
+PREMIUM_SEATS=1 2 3 4 5 6
+REGULAR_SEATS=7 8 9 10 11 12 13 14 15 16 17 18 19 20
+RESERVATIONS=Nowak/1/AWA354 Kowalski/2/TJH347 Adamowicz/7/HTR823 Kunegunda/8/OPW512 Olechowicz/9/EDZ512 Gabrielowicz/10/AWG246 Marcelewicz/11/OGB259 Ambroży/12/QYF730 Lew/13/LAZ572 Ferdynand/15/MTY877 Greenlaw/17/CPW443 Babetski/20/AHE323
+
+
+Stwórz aplikację pozwalającą załadować pliki różnych przewoźników, a następnie umożliwiającą przeglądanie lotów i sprawdzanie poprawności (czy loty u różnych przewoźników mają te same dane (np. numemry rezerwacji)). 
+niech aplikacja umożliwia znajdowanie błędów.
