@@ -17,7 +17,7 @@ public class System_LOTY1 implements IDataStrategy {
         List<AirTravel> airTravels = new ArrayList<>();
 
         // pobieram dane z pliku (linie tekstu) jako kolejne elementy listy
-        List<String> listFromFile = utilities.getStringFromFile("src/main/java/airTravel/data/LOTY1");
+        List<String> listFromFile = utilities.getListStringFromEntireFile("src/main/java/airTravel/data/LOTY1");
 
         // sprawdzam i usuwam jak są puste elementy
         for (int i = 0; i < listFromFile.size(); i++) {
@@ -67,34 +67,22 @@ public class System_LOTY1 implements IDataStrategy {
 
             if (strings[3] != null) {
                 String[] tabFirstClass = strings[3].split("%");
-                List<String> stringsFirstClassNummbers = new ArrayList<>(Arrays.asList(tabFirstClass));
-                ArrayList firstClassNummbers = new ArrayList<>();
-                stringsFirstClassNummbers.forEach(s -> firstClassNummbers.add(Integer.valueOf(s)));
-                airTravel.setFirstClassNummbers(firstClassNummbers);
+                setListIntegerToAirTravel(airTravel, tabFirstClass, 1);
             } else {
                 airTravel.setFirstClassNummbers(null);
             }
 
             String[] tabSecondClass = strings[4].split("%");
-            List<String> stringsSecondClassNummbers = new ArrayList<>(Arrays.asList(tabSecondClass));
-            ArrayList secondClassNummbers = new ArrayList<>();
-            stringsSecondClassNummbers.forEach(s -> secondClassNummbers.add(Integer.valueOf(s)));
-            airTravel.setSecondClassNummbers(secondClassNummbers);
+//            List<String> stringsSecondClassNummbers = new ArrayList<>(Arrays.asList(tabSecondClass));
+            setListIntegerToAirTravel(airTravel, tabSecondClass, 2);
+//            ArrayList secondClassNummbers = new ArrayList<>();
+//            stringsSecondClassNummbers.forEach(s -> secondClassNummbers.add(Integer.valueOf(s)));
+//            airTravel.setSecondClassNummbers(secondClassNummbers);
 
             if (strings[5] != null){
                 List<Reservation> reservationList = new ArrayList<>();
                 String[] tabString_Reservations = strings[5].split("%");
-                List<String> listString_Reservations = new ArrayList<>(Arrays.asList(tabString_Reservations));
-                for (int j = 0; j < listString_Reservations.size(); j++) {
-                    String[] reservations = listString_Reservations.get(j).split("#");
-                    Reservation reservation = new Reservation();
-                    reservation.setName(reservations[0]);
-                    reservation.setPlaceNummber(Integer.valueOf(reservations[1]));
-                    reservation.setReservationNummber(reservations[2]);
-
-                    reservationList.add(reservation);
-                }
-                airTravel.setReservations(reservationList);
+                setListReservationToAirTravel(airTravel, reservationList, tabString_Reservations, "#");
             }
 
             airTravels.add(airTravel);
@@ -103,5 +91,30 @@ public class System_LOTY1 implements IDataStrategy {
         airTravels.sort(Comparator.comparing(AirTravel::getNumber));
 
         return airTravels;
+    }
+
+    public static void setListReservationToAirTravel(AirTravel airTravel, List<Reservation> reservationList, String[] tabString_Reservations, String regex) {
+        List<String> listString_Reservations = new ArrayList<>(Arrays.asList(tabString_Reservations));
+        for (int j = 0; j < listString_Reservations.size(); j++) {
+            String[] reservations = listString_Reservations.get(j).split(regex);
+            Reservation reservation = new Reservation();
+            reservation.setName(reservations[0]);
+            reservation.setPlaceNummber(Integer.valueOf(reservations[1]));
+            reservation.setReservationNummber(reservations[2]);
+
+            reservationList.add(reservation);
+        }
+        airTravel.setReservations(reservationList);
+    }
+
+    public static void setListIntegerToAirTravel(AirTravel airTravel, String[] tabPlaceNummbers, int classNummber) {
+        List<String> stringsFirstClassNummbers = new ArrayList<>(Arrays.asList(tabPlaceNummbers));
+        ArrayList classNummbers = new ArrayList<>();
+        stringsFirstClassNummbers.forEach(s -> classNummbers.add(Integer.valueOf(s)));
+        if (classNummber == 1) {
+            airTravel.setFirstClassNummbers(classNummbers);
+        } else {
+            airTravel.setSecondClassNummbers(classNummbers);
+        }
     }
 }
