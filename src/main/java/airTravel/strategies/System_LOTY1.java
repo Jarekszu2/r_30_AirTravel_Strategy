@@ -73,16 +73,11 @@ public class System_LOTY1 implements IDataStrategy {
             }
 
             String[] tabSecondClass = strings[4].split("%");
-//            List<String> stringsSecondClassNummbers = new ArrayList<>(Arrays.asList(tabSecondClass));
             setListIntegerToAirTravel(airTravel, tabSecondClass, 2);
-//            ArrayList secondClassNummbers = new ArrayList<>();
-//            stringsSecondClassNummbers.forEach(s -> secondClassNummbers.add(Integer.valueOf(s)));
-//            airTravel.setSecondClassNummbers(secondClassNummbers);
 
             if (strings[5] != null){
-                List<Reservation> reservationList = new ArrayList<>();
                 String[] tabString_Reservations = strings[5].split("%");
-                setListReservationToAirTravel(airTravel, reservationList, tabString_Reservations, "#");
+                setListReservationToAirTravel(airTravel, tabString_Reservations, "#");
             }
 
             airTravels.add(airTravel);
@@ -93,10 +88,12 @@ public class System_LOTY1 implements IDataStrategy {
         return airTravels;
     }
 
-    public static void setListReservationToAirTravel(AirTravel airTravel, List<Reservation> reservationList, String[] tabString_Reservations, String regex) {
+    public static void setListReservationToAirTravel(AirTravel airTravel, String[] tabString_Reservations, String regex) {
+        List<Reservation> reservationList = new ArrayList<>();
         List<String> listString_Reservations = new ArrayList<>(Arrays.asList(tabString_Reservations));
         for (int j = 0; j < listString_Reservations.size(); j++) {
             String[] reservations = listString_Reservations.get(j).split(regex);
+
             Reservation reservation = new Reservation();
             reservation.setName(reservations[0]);
             reservation.setPlaceNummber(Integer.valueOf(reservations[1]));

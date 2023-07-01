@@ -3,6 +3,7 @@ package airTravel;
 import airTravel.strategies.IDataStrategy;
 import airTravel.strategies.System_LOTY1;
 import airTravel.strategies.System_LOTY2;
+import airTravel.strategies.System_flights;
 
 import java.util.Comparator;
 import java.util.List;
@@ -29,6 +30,11 @@ public class Main {
         System.out.println();
 
 
-
+        IDataStrategy flights = new System_flights();
+        dataSystem.setIDataStrategy(flights);
+        List<AirTravel> airTravelsFlights = dataSystem.getAirTravels();
+        System.out.println("System: flights");
+        airTravelsFlights.forEach(System.out::println);
+        System.out.println();
     }
 }

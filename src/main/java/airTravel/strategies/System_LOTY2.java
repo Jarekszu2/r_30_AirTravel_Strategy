@@ -18,10 +18,6 @@ public class System_LOTY2 implements IDataStrategy {
 
         List<List<String>> mainList = utilities.getListStringFromSomeLinesFromFile("src/main/java/airTravel/data/LOTY2");
 
-        if (mainList.get(15).get(5).isEmpty()){
-            System.out.println("Empty");
-        }
-
         for (List<String> stringList : mainList) {
             AirTravel airTravel = new AirTravel();
 
@@ -38,9 +34,8 @@ public class System_LOTY2 implements IDataStrategy {
             System_LOTY1.setListIntegerToAirTravel(airTravel, stringSecondClass, 2);
 
             if (stringList.get(5).split("").length > 1){
-                List<Reservation> reservationList = new ArrayList<>();
                 String[] tabString_Reservations = stringList.get(5).split(" ");
-                System_LOTY1.setListReservationToAirTravel(airTravel, reservationList, tabString_Reservations, ",");
+                System_LOTY1.setListReservationToAirTravel(airTravel, tabString_Reservations, ",");
             } else {
                 airTravel.setReservations(null);
             }
